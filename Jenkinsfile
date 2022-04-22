@@ -1,5 +1,6 @@
 pipeline {
         agent any
+        
         stages {
             stage('Start') {
              steps {
@@ -10,7 +11,6 @@ pipeline {
                     sh '''locust -f locustfile.py --headless --only-summary -u 100 -t 14s -r 10 --html index.html'''
                     sh 'cp -r /var/jenkins_home/workspace/Locust/*.html  locust_results' 
              }
-                    
         post {
         always {
 
