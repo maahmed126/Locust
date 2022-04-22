@@ -1,6 +1,5 @@
 pipeline {
         agent any
-        buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '30'))
         stages {
             stage('Start') {
              steps {
@@ -10,6 +9,7 @@ pipeline {
                     sh 'ls'
                     sh '''locust -f locustfile.py --headless --only-summary -u 100 -t 14s -r 10 --html index.html'''
                     sh 'cp -r /var/jenkins_home/workspace/Locust/*.html  locust_results' 
+                    buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '30'))
              }
                     
         post {
