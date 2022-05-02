@@ -7,7 +7,7 @@ pipeline {
         
         stages {
             stage('Deploy') {
-                when { expression { env.DEPLOY_TO == "release" } }
+                when { branch pattern: "release/sprint/*", comparator: "REGEXP"}
                 parallel {
 
                     stage("Started Deployment to DEV") {
