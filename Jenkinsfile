@@ -7,7 +7,7 @@ pipeline {
         
         stages {
             stage('Deploy') {
-                when { expression { env.DEPLOY_TO == "release" } }
+                when { expression { env.RELEASE == "true" } }
                 parallel {
 
                     stage("Started Deployment to DEV") {
