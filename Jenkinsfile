@@ -8,6 +8,8 @@ pipeline {
         stages {
             stage('Deploy') {
                 when { expression { env.DEPLOY_TO == "release" } }
+                parallel {
+
                     stage("Started Deployment to DEV") {
                         steps {
                             sh 'echo Started DEV release'
@@ -58,6 +60,7 @@ pipeline {
                             sh 'echo Started PROD release'
                         }
                     }
+                }
             }
         }
         post {
