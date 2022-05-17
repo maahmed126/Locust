@@ -45,7 +45,7 @@ pipeline {
                        //         println("Hotfix Selected")
                        //     }
                        // }
-                        sh 'echo $env.environ'
+                        sh 'echo $environ'
                         sh 'echo Started QA release'
                         sh 'echo QA Release Skipped due to Hotfix'
                     }
