@@ -35,16 +35,16 @@ pipeline {
 
                 stage("Started Deployment to QA") {
                     steps {
-                        script {
-                            if(INPUT_PARAMS=="Release")
-                            {
-                                println("Selected release")
-                            }
-                            else
-                            {
-                                println("Hotfix Selected")
-                            }
-                        }
+                       // script {
+                       //     if(INPUT_PARAMS=="Release")
+                       //     {
+                       //         println("Selected release")
+                       //     }
+                       //     else
+                       //     {
+                       //         println("Hotfix Selected")
+                       //     }
+                       // }
                         sh 'echo $INPUT_PARAMS'
                         sh 'echo Started QA release'
                         sh 'echo QA Release Skipped due to Hotfix'
