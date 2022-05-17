@@ -45,7 +45,7 @@ pipeline {
                        //         println("Hotfix Selected")
                        //     }
                        // }
-                        sh 'echo $params.INPUT_PARAMS'
+                        sh 'echo $INPUT_PARAMS.ENVIRON'
                         sh 'echo Started QA release'
                         sh 'echo QA Release Skipped due to Hotfix'
                     }
