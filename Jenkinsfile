@@ -46,13 +46,13 @@ pipeline {
                     // no agent is used, so executors are not used up when waiting for approvals
                     agent none
                     steps {
-                        script {
                             if (env.ENVIRONMENT == 'Release')
-                                def approver = input id: 'Deploy', message: 'Deploy to UAT?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
-                                echo "This deployment was approved by ${approver}"
+                                script {
+                                    def approver = input id: 'Deploy', message: 'Deploy to UAT?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
+                                    echo "This deployment was approved by ${approver}"
+                                }
                             else
                                 echo "UAT Approval Skipped due to Hotfix"
-                        }
                     }
                 }
 
@@ -69,13 +69,13 @@ pipeline {
                     // no agent is used, so executors are not used up when waiting for approvals
                     agent none
                     steps {
-                        script {
                             if (env.ENVIRONMENT == 'Release')
-                                def approver = input id: 'Deploy', message: 'Deploy to PROD?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
-                                echo "This deployment was approved by ${approver}"
+                                script {
+                                    def approver = input id: 'Deploy', message: 'Deploy to PROD?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
+                                    echo "This deployment was approved by ${approver}"
+                                }
                             else
                                 echo "Approval for PROD Skipped due to Hotfix"
-                        }
                     }
                 }
 
