@@ -26,8 +26,7 @@ pipeline {
                     steps {
                         script {
                             def INPUT_PARAMS = input message: 'Approval for Release Deployment', ok: 'Next', parameters: [choice(name: 'ENVIRONMENT', choices: ['Release','Hotfix'].join('\n'),description: 'Please select the way of Deployment')]
-                            sh 'echo $INPUT_PARAMS.ENVIRONMENT'
-                            env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
+                            def env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
                             // def approver = input id: 'Deploy', message: 'Deploy to QA?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
                             // echo "This deployment was approved by ${approver}"
                         }
@@ -36,10 +35,8 @@ pipeline {
 
                 stage("Started Deployment to QA") {
                     steps {
-                        if (env.ENVIRONMENT == 'Release')
-                            sh 'echo Started QA release'
-                        else
-                            sh 'echo QA Release Skipped due to Hotfix'
+                        sh 'echo Started QA release'
+                        sh 'echo QA Release Skipped due to Hotfix'
                     }
                 }
 
@@ -48,11 +45,11 @@ pipeline {
                     agent none
                     steps {
                         script {
-                            if (env.ENVIRONMENT == "Release") {
+                            //if (env.ENVIRONMENT == "Release") {
                                 def approver = input id: 'Deploy', message: 'Deploy to UAT?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
                                 echo "This deployment was approved by ${approver}"
-                            }
-                            else
+                            //}
+                            //else
                                 sh 'echo "UAT Approval Skipped due to Hotfix" '
                         }
                     }
@@ -60,9 +57,9 @@ pipeline {
 
                 stage("Started Deployment to UAT") {
                     steps {
-                        if (env.ENVIRONMENT == 'Release')
+                        //if (env.ENVIRONMENT == 'Release')
                             sh 'echo Started release'
-                        else
+                        //else
                             sh 'echo UAT Deployment Skipped due to Hotfix'
                     }
                 }
@@ -72,11 +69,11 @@ pipeline {
                     agent none
                     steps {
                         script {
-                            if (env.ENVIRONMENT == 'Release') {
+                            //if (env.ENVIRONMENT == 'Release') {
                                 def approver = input id: 'Deploy', message: 'Deploy to PROD?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
                                 echo "This deployment was approved by ${approver}"
-                            }
-                            else
+                            //}
+                            //else
                                 echo "Approval for PROD Skipped due to Hotfix"
                         }
                     }
