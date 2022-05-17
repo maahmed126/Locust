@@ -27,7 +27,7 @@ pipeline {
                         script {
                             def INPUT_PARAMS = input message: 'Approval for Release Deployment', ok: 'Next', parameters: [choice(name: 'ENVIRON', choices: ['Release','Hotfix'].join('\n'),description: 'Please select the way of Deployment')]
                             // env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
-                            println("Selected Environment: ${INPUT_PARAMS.ENVIRON}")
+                            println("Selected Environment: " + INPUT_PARAMS.ENVIRON)
                         }
                     }
                 }
