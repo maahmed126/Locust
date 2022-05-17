@@ -28,6 +28,14 @@ pipeline {
                             def INPUT_PARAMS = input message: 'Approval for Release Deployment', ok: 'Next', parameters: [choice(name: 'ENVIRON', choices: ['Release','Hotfix'].join('\n'),description: 'Please select the way of Deployment')]
                             // env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
                             println("Selected Environment: " + INPUT_PARAMS)
+ 
+                        }
+                    }
+                }
+
+                stage("Started Deployment to QA") {
+                    steps {
+                        script {
                             if(INPUT_PARAMS=="Release")
                             {
                                 println("Selected release")
@@ -37,11 +45,7 @@ pipeline {
                                 println("Hotfix Selected")
                             }
                         }
-                    }
-                }
-
-                stage("Started Deployment to QA") {
-                    steps {
+                        sh 'echo $INPUT_PARAMS'
                         sh 'echo Started QA release'
                         sh 'echo QA Release Skipped due to Hotfix'
                     }
