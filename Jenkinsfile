@@ -25,9 +25,10 @@ pipeline {
                     agent none
                     steps {
                         script {
+                            def env.ENVIRON
                             def INPUT_PARAMS = input message: 'Approval for Release Deployment', ok: 'Next', parameters: [choice(name: 'ENVIRONMENT', choices: ['Release','Hotfix'].join('\n'),description: 'Please select the way of Deployment')]
-                            //env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
-                            sh 'echo $INPUT_PARAMS.ENVIRONMENT'
+                            env.ENVIRON = INPUT_PARAMS.ENVIRONMENT
+                            sh 'echo $env.ENVIRON'
                             // def approver = input id: 'Deploy', message: 'Deploy to QA?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
                             // echo "This deployment was approved by ${approver}"
                         }
