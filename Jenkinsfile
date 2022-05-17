@@ -26,7 +26,7 @@ pipeline {
                     steps {
                         script {
                             def INPUT_PARAMS = input message: 'Approval for Release Deployment', ok: 'Next', parameters: [choice(name: 'ENVIRONMENT', choices: ['Release','Hotfix'].join('\n'),description: 'Please select the way of Deployment')]
-                            def env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
+                            env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
                             // def approver = input id: 'Deploy', message: 'Deploy to QA?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
                             // echo "This deployment was approved by ${approver}"
                         }
