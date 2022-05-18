@@ -30,6 +30,7 @@ pipeline {
                             env.environ=INPUT_PARAMS
                             println("output: " + env.environ)
                         }
+                        sh 'echo $env.environ'
                     }
                 }
 
