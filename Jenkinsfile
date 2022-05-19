@@ -35,18 +35,7 @@ pipeline {
                 }
 
                 stage("Started Deployment to QA") {
-                    when { expression { env.environ == 'Release' } }
                     steps {
-                       // script {
-                       //     if(INPUT_PARAMS=="Release")
-                       //     {
-                       //         println("Selected release")
-                       //     }
-                       //     else
-                       //     {
-                       //         println("Hotfix Selected")
-                       //     }
-                       // }
                         sh 'echo $environ'
                         sh 'echo Started QA release'
                         sh 'echo QA Release Skipped due to Hotfix'
@@ -54,17 +43,12 @@ pipeline {
                 }
 
                 stage('Approval to UAT') {
-                    // no agent is used, so executors are not used up when waiting for approvals
                     when { expression { env.environ == 'Release' } }
                     agent none
                     steps {
                         script {
-                            //if (env.ENVIRONMENT == "Release") {
                                 def approver = input id: 'Deploy', message: 'Deploy to UAT?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
                                 echo "This deployment was approved by ${approver}"
-                            //}
-                            //else
-                                sh 'echo "UAT Approval Skipped due to Hotfix" '
                         }
                     }
                 }
@@ -72,25 +56,17 @@ pipeline {
                 stage("Started Deployment to UAT") {
                     when { expression { env.environ == 'Release' } }
                     steps {
-                        //if (env.ENVIRONMENT == 'Release')
                             sh 'echo Started release'
-                        //else
-                            sh 'echo UAT Deployment Skipped due to Hotfix'
                     }
                 }
 
                 stage('Approval to PROD') {
                     when { expression { env.environ == 'Release' } }
-                    // no agent is used, so executors are not used up when waiting for approvals
                     agent none
                     steps {
                         script {
-                            //if (env.ENVIRONMENT == 'Release') {
                                 def approver = input id: 'Deploy', message: 'Deploy to PROD?', submitter: 'pavan.prabhu,admin', submitterParameter: 'deploy_approver'
                                 echo "This deployment was approved by ${approver}"
-                            //}
-                            //else
-                                echo "Approval for PROD Skipped due to Hotfix"
                         }
                     }
                 }
@@ -105,7 +81,6 @@ pipeline {
     }
     post {
         always {
-            /* clean up our workspace */
             deleteDir()
 
             /* clean up tmp directory */
