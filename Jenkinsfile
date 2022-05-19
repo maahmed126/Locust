@@ -35,6 +35,7 @@ pipeline {
                 }
 
                 stage("Started Deployment to QA") {
+                    when { expression { env.environ == 'Release' } }
                     steps {
                        // script {
                        //     if(INPUT_PARAMS=="Release")
@@ -54,6 +55,7 @@ pipeline {
 
                 stage('Approval to UAT') {
                     // no agent is used, so executors are not used up when waiting for approvals
+                    when { expression { env.environ == 'Release' } }
                     agent none
                     steps {
                         script {
@@ -68,6 +70,7 @@ pipeline {
                 }
 
                 stage("Started Deployment to UAT") {
+                    when { expression { env.environ == 'Release' } }
                     steps {
                         //if (env.ENVIRONMENT == 'Release')
                             sh 'echo Started release'
@@ -77,6 +80,7 @@ pipeline {
                 }
 
                 stage('Approval to PROD') {
+                    when { expression { env.environ == 'Release' } }
                     // no agent is used, so executors are not used up when waiting for approvals
                     agent none
                     steps {
