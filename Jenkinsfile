@@ -22,7 +22,12 @@ pipeline {
                 stage("Started Deployment to DEV") {
                     steps {
                         sh 'echo Started DEV release'
-                        sleep time: 1, unit: 'MINUTES'
+                    }
+                }
+                
+                stage("Pause Stage") {
+                    steps {
+                        sleep time: 1, unit: 'HOURS'
                     }
                 }
 
